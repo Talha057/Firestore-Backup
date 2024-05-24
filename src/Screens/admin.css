@@ -1,0 +1,94 @@
+#root,
+body {
+  height: 100vh;
+}
+
+#sidebar {
+  background-color: #1d1919;
+  padding-bottom: 122px;
+}
+
+.img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.main {
+  height: 100vh;
+  display: flex;
+}
+
+a {
+  color: #f8b739;
+  text-decoration: none;
+}
+
+body {
+  font-family: Poppins;
+  font-weight: 400;
+}
+.button {
+  background-color: #f8b739;
+  height: 40px;
+  width: 150px;
+  border-radius: 1cm;
+}
+p {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+table {
+  margin-top: 15px;
+  width: 100%;
+  border: none;
+  font-size: 14px;
+}
+
+.tabledata {
+  height: 45px;
+  padding-left: 30px;
+  border-collapse: collapse;
+  font-weight: normal;
+}
+tr,
+td {
+  border-width: 1px;
+  border-style: groove;
+  padding-left: 50px;
+  height: 30px;
+  border-collapse: collapse;
+  font-weight: bold;
+}
+
+th {
+  padding-left: 50px;
+  height: 30px;
+}
+.table-box {
+  border: 1px;
+  border-style: groove;
+  background-color: white;
+}
+
+.outer-box {
+  background-color: #4d4747;
+}
+.heading {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  padding-bottom: 25px;
+}
+.searchbox {
+  height: 30px;
+  width: 190px;
+}
+.search-div {
+  margin-top: 40px;
+  font-size: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+  align-items: center;
+}

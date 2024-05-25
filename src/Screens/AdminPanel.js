@@ -30,7 +30,10 @@ const AdminPanel = () => {
   const createBackup = () => {
     setLoading(true);
     axios
-      .post("http://localhost:8010/backup", { token })
+      .post(
+        "https://firestorebackupbackend-git-main-talhas-projects-6376b52b.vercel.app/backup",
+        { token }
+      )
       .then((res) => {
         setLoading(false);
         setModalVisibility(true);
@@ -41,7 +44,10 @@ const AdminPanel = () => {
       });
 
     axios
-      .get("http://localhost:8010/files", { params: { token } })
+      .get(
+        "https://firestorebackupbackend-git-main-talhas-projects-6376b52b.vercel.app/files",
+        { params: { token } }
+      )
       .then((res) => {
         console.log(res.data.files);
         setFiles(res.data.files.reverse());
@@ -57,7 +63,10 @@ const AdminPanel = () => {
   };
   useEffect(() => {
     axios
-      .get("http://localhost:8010/files", { params: { token } })
+      .get(
+        "https://firestorebackupbackend-git-main-talhas-projects-6376b52b.vercel.app/files",
+        { params: { token } }
+      )
       .then((res) => {
         setFiles(res.data.files.reverse());
         setFilesCopy(res.data.files);

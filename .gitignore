@@ -10,7 +10,8 @@
 
 # production
 /build
-
+/backup_database.json
+/restore_database.json
 # misc
 .DS_Store
 .env.local

@@ -13,10 +13,13 @@ const LoginScreen = () => {
   const navigate = useNavigate();
   const login = () => {
     axios
-      .post("http://localhost:8010/login", {
-        name,
-        password,
-      })
+      .post(
+        "https://firestorebackupbackend-git-main-talhas-projects-6376b52b.vercel.app/login",
+        {
+          name,
+          password,
+        }
+      )
       .then((res) => {
         localStorage.setItem("token", JSON.stringify(res.data.token));
         navigate("/managebackup");

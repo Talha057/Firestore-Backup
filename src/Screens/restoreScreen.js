@@ -14,7 +14,10 @@ const RestoreScreen = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:8010/files", { params: { token } })
+      .get(
+        "https://firestorebackupbackend-git-main-talhas-projects-6376b52b.vercel.app/files",
+        { params: { token } }
+      )
       .then((res) => {
         const array = [];
         for (let elem of res.data.files.reverse()) {
@@ -40,7 +43,10 @@ const RestoreScreen = () => {
       console.log(selectedItem);
       // const name = selectedItem.value.slice(0, -4);
       axios
-        .post("http://localhost:8010/restore", { token, name })
+        .post(
+          "https://firestorebackupbackend-git-main-talhas-projects-6376b52b.vercel.app/restore",
+          { token, name }
+        )
         .then((res) => {
           setLoading(false);
           setModalVisibility(true);

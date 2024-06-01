@@ -1,11 +1,13 @@
 #root,
-body {
+html {
+  min-height: 100%;
+}
+body,
+.main {
   height: 100vh;
 }
-
 #sidebar {
   background-color: #1d1919;
-  padding-bottom: 122px;
 }
 
 .img {
@@ -15,7 +17,6 @@ body {
   width: 50%;
 }
 .main {
-  height: 100vh;
   display: flex;
 }
 

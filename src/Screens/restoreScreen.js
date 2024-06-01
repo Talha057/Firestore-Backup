@@ -15,7 +15,7 @@ const RestoreScreen = () => {
   useEffect(() => {
     axios
       .get(
-        "https://firestorebackupbackend-git-main-talhas-projects-6376b52b.vercel.app/files",
+        "https://firestore-backup-backend-production.up.railway.app//files",
         { params: { token } }
       )
       .then((res) => {
@@ -44,7 +44,7 @@ const RestoreScreen = () => {
       // const name = selectedItem.value.slice(0, -4);
       axios
         .post(
-          "https://firestorebackupbackend-git-main-talhas-projects-6376b52b.vercel.app/restore",
+          "https://firestore-backup-backend-production.up.railway.app//restore",
           { token, name }
         )
         .then((res) => {

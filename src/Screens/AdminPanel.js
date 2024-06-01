@@ -31,7 +31,7 @@ const AdminPanel = () => {
     setLoading(true);
     axios
       .post(
-        "https://firestorebackupbackend-git-main-talhas-projects-6376b52b.vercel.app/backup",
+        "https://firestore-backup-backend-production.up.railway.app//backup",
         { token }
       )
       .then((res) => {
@@ -45,7 +45,7 @@ const AdminPanel = () => {
 
     axios
       .get(
-        "https://firestorebackupbackend-git-main-talhas-projects-6376b52b.vercel.app/files",
+        "https://firestore-backup-backend-production.up.railway.app//files",
         { params: { token } }
       )
       .then((res) => {
@@ -64,7 +64,7 @@ const AdminPanel = () => {
   useEffect(() => {
     axios
       .get(
-        "https://firestorebackupbackend-git-main-talhas-projects-6376b52b.vercel.app/files",
+        "https://firestore-backup-backend-production.up.railway.app//files",
         { params: { token } }
       )
       .then((res) => {

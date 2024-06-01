@@ -13,13 +13,10 @@ const LoginScreen = () => {
   const navigate = useNavigate();
   const login = () => {
     axios
-      .post(
-        "https://firestore-backup-backend-production.up.railway.app//login",
-        {
-          name,
-          password,
-        }
-      )
+      .post("https://firestore-backend.up.railway.app/login", {
+        name,
+        password,
+      })
       .then((res) => {
         localStorage.setItem("token", JSON.stringify(res.data.token));
         navigate("/managebackup");

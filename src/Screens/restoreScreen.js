@@ -14,10 +14,9 @@ const RestoreScreen = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get(
-        "https://firestore-backup-backend-production.up.railway.app//files",
-        { params: { token } }
-      )
+      .get("https://firestore-backend.up.railway.app/files", {
+        params: { token },
+      })
       .then((res) => {
         const array = [];
         for (let elem of res.data.files.reverse()) {
@@ -43,10 +42,10 @@ const RestoreScreen = () => {
       console.log(selectedItem);
       // const name = selectedItem.value.slice(0, -4);
       axios
-        .post(
-          "https://firestore-backup-backend-production.up.railway.app//restore",
-          { token, name }
-        )
+        .post("https://firestore-backend.up.railway.app/restore", {
+          token,
+          name,
+        })
         .then((res) => {
           setLoading(false);
           setModalVisibility(true);

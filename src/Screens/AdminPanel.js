@@ -30,10 +30,7 @@ const AdminPanel = () => {
   const createBackup = () => {
     setLoading(true);
     axios
-      .post(
-        "https://firestore-backup-backend-production.up.railway.app//backup",
-        { token }
-      )
+      .post("https://firestore-backend.up.railway.app/backup", { token })
       .then((res) => {
         setLoading(false);
         setModalVisibility(true);
@@ -44,10 +41,9 @@ const AdminPanel = () => {
       });
 
     axios
-      .get(
-        "https://firestore-backup-backend-production.up.railway.app//files",
-        { params: { token } }
-      )
+      .get("https://firestore-backend.up.railway.app/files", {
+        params: { token },
+      })
       .then((res) => {
         console.log(res.data.files);
         setFiles(res.data.files.reverse());
@@ -63,10 +59,9 @@ const AdminPanel = () => {
   };
   useEffect(() => {
     axios
-      .get(
-        "https://firestore-backup-backend-production.up.railway.app//files",
-        { params: { token } }
-      )
+      .get("https://firestore-backend.up.railway.app/files", {
+        params: { token },
+      })
       .then((res) => {
         setFiles(res.data.files.reverse());
         setFilesCopy(res.data.files);

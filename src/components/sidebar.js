@@ -1,5 +1,6 @@
 import React from "react";
 import "../Screens/admin.css";
+import MenuIcon from "@mui/icons-material/Menu";
 
 import { useNavigate } from "react-router-dom";
 
@@ -12,16 +13,19 @@ const Sidebar = () => {
           <img
             className="img logo rounded-circle mb-5 "
             src="https://img.freepik.com/free-vector/bar-chart-icon-analytics-symbol_53876-116178.jpg?size=626&ext=jpg&ga=GA1.1.478764289.1689769707&semt=ais"
-            style={{ height: 150, width: 150 }}
           ></img>
         </a>
         <ul className="list-unstyled mb-5">
           <li className="active">
-            <a href="/managebackup">Backups</a>
+            <a className="sidemenu-btn" href="/managebackup">
+              Backups
+            </a>
           </li>
           <hr style={{ color: "gray" }}></hr>
           <li>
-            <a href="/restore">Restore</a>
+            <a className="sidemenu-btn" href="/restore">
+              Restore
+            </a>
           </li>
 
           <hr style={{ color: "gray" }}></hr>

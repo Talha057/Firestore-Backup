@@ -11,6 +11,7 @@ const RestoreScreen = () => {
   const [selectedItem, setSelectedItem] = useState("");
   const [modalVisibility, setModalVisibility] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [listLoader, setListLoader] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
     axios
@@ -18,6 +19,8 @@ const RestoreScreen = () => {
         params: { token },
       })
       .then((res) => {
+        setListLoader(false);
+
         const array = [];
         for (let elem of res.data.files.reverse()) {
           const obj = {
@@ -61,41 +64,46 @@ const RestoreScreen = () => {
   };
 
   return (
-    <div className="d-flex " style={{ backgroundColor: "#4d4747" }}>
-      <Sidebar />
-      <div className="w-100 d-flex flex-column align-items-center ">
-        <div className="d-flex w-100 h-25 justify-content-center align-items-center mt-5 gap-3 ">
-          <label style={{ color: "#f8b739", fontSize: "18px" }}>
-            Choose a backup:
-          </label>
-          <Select
-            className="w-50"
-            options={optionList}
-            placeholder="Select Backup"
-            onChange={(item) => setSelectedItem(item)}
-            value={selectedItem}
-            isSearchable={true}
-          />
+    <div className="container-fluid h-100">
+      <div className="outer-box row h-100">
+        <Sidebar />
+        <div className=" d-flex flex-column align-items-center col-9">
+          <div className="d-flex w-100 h-25 justify-content-center align-items-center mt-5 gap-3 ">
+            <label style={{ color: "black", fontSize: "18px" }}>
+              Choose a backup:
+            </label>
+            <Select
+              className="w-50"
+              options={listLoader ? [{ label: "Loading..." }] : optionList}
+              placeholder="Select Backup"
+              onChange={(item) => setSelectedItem(item)}
+              value={selectedItem}
+              isSearchable={true}
+            />
+          </div>
+          <button
+            className="button"
+            onClick={handleRestore}
+            disabled={loading ? true : false}
+          >
+            {loading ? "Loading..." : "Restore"}
+          </button>
         </div>
-        <button
-          className="button"
-          onClick={handleRestore}
-          disabled={loading ? true : false}
-        >
-          {loading ? "Loading..." : "Restore"}
-        </button>
+        <Modal show={modalVisibility} onHide={() => setModalVisibility(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title style={{ color: "green" }}>Success</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Backup restored Successfully</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setModalVisibility(false)}
+            >
+              Ok
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
-      <Modal show={modalVisibility} onHide={() => setModalVisibility(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title style={{ color: "green" }}>Success</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Backup restored Successfully</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setModalVisibility(false)}>
-            Ok
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 };

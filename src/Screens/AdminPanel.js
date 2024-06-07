@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/sidebar";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import loader from "../assets/loader2.lottie";
 
 const AdminPanel = () => {
   const navigate = useNavigate();
@@ -14,6 +16,7 @@ const AdminPanel = () => {
   const [fileCopy, setFilesCopy] = useState([]);
   const [modalVisibility, setModalVisibility] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isFileLoading, setFileLoading] = useState(true);
 
   const token = JSON.parse(localStorage.getItem("token"));
 
@@ -29,6 +32,7 @@ const AdminPanel = () => {
   };
   const createBackup = () => {
     setLoading(true);
+    setFileLoading(true);
     axios
       .post("https://firestore-backend.up.railway.app/backup", { token })
       .then((res) => {
@@ -46,6 +50,7 @@ const AdminPanel = () => {
       })
       .then((res) => {
         console.log(res.data.files);
+        setFileLoading(false);
         setFiles(res.data.files.reverse());
 
         setFilesCopy(res.data.files);
@@ -58,12 +63,14 @@ const AdminPanel = () => {
       });
   };
   useEffect(() => {
+    console.log(isFileLoading);
     axios
       .get("https://firestore-backend.up.railway.app/files", {
         params: { token },
       })
       .then((res) => {
         setFiles(res.data.files.reverse());
+        setFileLoading(false);
         setFilesCopy(res.data.files);
       })
       .catch((err) => {
@@ -75,71 +82,90 @@ const AdminPanel = () => {
   }, []);
 
   return (
-    <div className="main">
-      <Sidebar />
-      <div className="outer-box container-fluid">
-        <div className="container heading ">
-          <h3 style={{ color: "#f8b739" }}>Manage Backup</h3>
-          <button
-            className="button"
-            onClick={createBackup}
-            disabled={loading ? true : false}
-          >
-            {loading ? "Loading..." : "Create Backup"}
-          </button>
-        </div>
-        <div className="container table-box">
-          <div className="search-div">
-            <label>Search :</label>
-            <input
-              className="searchbox"
-              type="text"
-              onChange={handleSearch}
-            ></input>
+    <div className="container-fluid h-100">
+      <div className="row h-100">
+        <Sidebar />
+        <div className="col-9 outer-box h-100">
+          <div className="heading">
+            <h3 className="main-heading">Manage Backup</h3>
+            <button
+              className="button"
+              onClick={createBackup}
+              disabled={loading ? true : false}
+            >
+              {loading ? "Loading..." : "Create Backup"}
+            </button>
           </div>
-          <table className="">
-            <thead>
-              <tr>
-                <td>File Name</td>
-                <td>Date</td>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody className="tablebody">
-              {files?.map((file) => {
-                const array = file.fileName.split("_");
-                const date = array[0];
-
-                return (
-                  <tr className="tablerow">
-                    <td className="tabledata">{file.fileName}</td>
-                    <td className="tabledata">{date}</td>
-                    <td className="tabledata">
-                      <a
-                        href={`${file.fileUrl}/${file.fileUrlPart}.overall_export_metadata`}
-                        download
-                      >
-                        Download
-                      </a>
-                    </td>
+          <div className="table-box ">
+            <div className="mx-2 search-div">
+              <label>Search :</label>
+              <input
+                className="searchbox"
+                type="text"
+                onChange={handleSearch}
+              ></input>
+            </div>
+            {isFileLoading ? (
+              <div className="loader-div w-100 align-items-center d-flex ">
+                <DotLottieReact
+                  src={loader}
+                  autoplay
+                  loop
+                  style={{ width: "100%", height: 200 }}
+                />
+              </div>
+            ) : (
+              <table className=" ">
+                <thead>
+                  <tr>
+                    <td>File Name</td>
+                    <td>Date</td>
+                    <td></td>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                </thead>
+                <tbody className="tablebody">
+                  {files?.map((file) => {
+                    const array = file.fileName.split("_");
+                    const date = array[0];
+
+                    return (
+                      <tr className="tablerow">
+                        <td className="tabledata">{file.fileName}</td>
+                        <td className="tabledata">{date}</td>
+                        <td className="tabledata">
+                          <a
+                            href={`${file.fileUrl}/${file.fileUrlPart}.overall_export_metadata`}
+                            download
+                          >
+                            Download
+                          </a>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
+        {/*
+
+        <Modal show={modalVisibility} onHide={() => setModalVisibility(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title style={{ color: "green" }}>Success</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Backup created Successfully</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setModalVisibility(false)}
+            >
+              Ok
+            </Button>
+          </Modal.Footer>
+        </Modal>{" "}
+        */}
       </div>
-      <Modal show={modalVisibility} onHide={() => setModalVisibility(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title style={{ color: "green" }}>Success</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Backup created Successfully</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setModalVisibility(false)}>
-            Ok
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 };
